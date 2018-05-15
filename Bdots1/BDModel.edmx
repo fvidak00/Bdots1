@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CertUser">
+          <Key>
+            <PropertyRef Name="certUserID" />
+          </Key>
+          <Property Name="certUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="balance" Type="decimal" Precision="18" Scale="9" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="320" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="videoID" Type="int" Nullable="false" />
+          <Property Name="payer" Type="int" Nullable="false" />
+          <Property Name="receiver" Type="int" Nullable="false" />
+          <Property Name="paymentDatetime" Type="datetime" Nullable="false" />
+          <Property Name="paymentSum" Type="decimal" Precision="18" Scale="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="videoID" />
+          </Key>
+          <Property Name="videoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="9" Nullable="false" />
+          <Property Name="viewsCount" Type="int" Nullable="false" />
+          <Property Name="filepath" Type="varchar(max)" Nullable="false" />
+          <Property Name="about" Type="nvarchar(max)" />
+          <Property Name="userID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Payment__payer__2F10007B">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__receive__300424B4">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__videoID__2E1BDC42">
+          <End Role="Video" Type="Self.Video" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="videoID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="videoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Video__userID__2B3F6F97">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDModelStoreContainer">
+          <EntitySet Name="CertUser" EntityType="Self.CertUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Payment__payer__2F10007B" Association="Self.FK__Payment__payer__2F10007B">
+            <End Role="CertUser" EntitySet="CertUser" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__receive__300424B4" Association="Self.FK__Payment__receive__300424B4">
+            <End Role="CertUser" EntitySet="CertUser" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__videoID__2E1BDC42" Association="Self.FK__Payment__videoID__2E1BDC42">
+            <End Role="Video" EntitySet="Video" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Video__userID__2B3F6F97" Association="Self.FK__Video__userID__2B3F6F97">
+            <End Role="CertUser" EntitySet="CertUser" />
+            <End Role="Video" EntitySet="Video" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CertUser">
+          <Key>
+            <PropertyRef Name="certUserID" />
+          </Key>
+          <Property Name="certUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="balance" Type="Decimal" Precision="18" Scale="9" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="320" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PaymentsSent" Relationship="Self.FK__Payment__payer__2F10007B" FromRole="CertUser" ToRole="Payment" />
+          <NavigationProperty Name="PaymentsReceived" Relationship="Self.FK__Payment__receive__300424B4" FromRole="CertUser" ToRole="Payment" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK__Video__userID__2B3F6F97" FromRole="CertUser" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="videoID" Type="Int32" Nullable="false" />
+          <Property Name="payer" Type="Int32" Nullable="false" />
+          <Property Name="receiver" Type="Int32" Nullable="false" />
+          <Property Name="paymentDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="paymentSum" Type="Decimal" Precision="18" Scale="9" Nullable="false" />
+          <NavigationProperty Name="Payer" Relationship="Self.FK__Payment__payer__2F10007B" FromRole="Payment" ToRole="CertUser" />
+          <NavigationProperty Name="Receiver" Relationship="Self.FK__Payment__receive__300424B4" FromRole="Payment" ToRole="CertUser" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__Payment__videoID__2E1BDC42" FromRole="Payment" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="videoID" />
+          </Key>
+          <Property Name="videoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="9" Nullable="false" />
+          <Property Name="viewsCount" Type="Int32" Nullable="false" />
+          <Property Name="filepath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CertUser" Relationship="Self.FK__Video__userID__2B3F6F97" FromRole="Video" ToRole="CertUser" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__videoID__2E1BDC42" FromRole="Video" ToRole="Payment" />
+        </EntityType>
+        <Association Name="FK__Payment__payer__2F10007B">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="payer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__receive__300424B4">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Video__userID__2B3F6F97">
+          <End Role="CertUser" Type="Self.CertUser" Multiplicity="1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CertUser">
+              <PropertyRef Name="certUserID" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__videoID__2E1BDC42">
+          <End Role="Video" Type="Self.Video" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="videoID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="videoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CertUsers" EntityType="Self.CertUser" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Videos" EntityType="Self.Video" />
+          <AssociationSet Name="FK__Payment__payer__2F10007B" Association="Self.FK__Payment__payer__2F10007B">
+            <End Role="CertUser" EntitySet="CertUsers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__receive__300424B4" Association="Self.FK__Payment__receive__300424B4">
+            <End Role="CertUser" EntitySet="CertUsers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Video__userID__2B3F6F97" Association="Self.FK__Video__userID__2B3F6F97">
+            <End Role="CertUser" EntitySet="CertUsers" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__videoID__2E1BDC42" Association="Self.FK__Payment__videoID__2E1BDC42">
+            <End Role="Video" EntitySet="Videos" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDModelStoreContainer" CdmEntityContainer="BDEntities">
+          <EntitySetMapping Name="CertUsers">
+            <EntityTypeMapping TypeName="BDModel.CertUser">
+              <MappingFragment StoreEntitySet="CertUser">
+                <ScalarProperty Name="certUserID" ColumnName="certUserID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="BDModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+                <ScalarProperty Name="videoID" ColumnName="videoID" />
+                <ScalarProperty Name="payer" ColumnName="payer" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+                <ScalarProperty Name="paymentDatetime" ColumnName="paymentDatetime" />
+                <ScalarProperty Name="paymentSum" ColumnName="paymentSum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="BDModel.Video">
+              <MappingFragment StoreEntitySet="Video">
+                <ScalarProperty Name="videoID" ColumnName="videoID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="viewsCount" ColumnName="viewsCount" />
+                <ScalarProperty Name="filepath" ColumnName="filepath" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
