@@ -28,6 +28,7 @@ namespace Bdots1
         public string lastName { get; set; }
         public decimal balance { get; set; }
         public string email { get; set; }
+        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> PaymentsSent { get; set; }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Bdots1.Controllers
 {
-    public class HomeController : Controller
+    public class NavigationBarController : Controller
     {
         public ActionResult Index()
         {
@@ -15,7 +15,8 @@ namespace Bdots1.Controllers
 
         public ActionResult MyProfile()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Your profile";
+
 
             return View();
         }
@@ -30,6 +31,12 @@ namespace Bdots1.Controllers
         public ActionResult Upload()
         {
             ViewBag.Message = "Upload page";
+            return View();
+        }
+
+        public ActionResult Transactions()
+        {
+            ViewBag.Message = "Transactions";
             return View();
         }
     }

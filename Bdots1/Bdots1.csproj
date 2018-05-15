@@ -174,7 +174,8 @@
     <Compile Include="CertUser.cs">
       <DependentUpon>BDModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NavigationBarController.cs" />
+    <Compile Include="Controllers\MiscController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,14 +240,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\MyProfile.cshtml" />
-    <Content Include="Views\Home\MyVideos.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Upload.cshtml" />
+    <Content Include="Views\NavigationBar\MyProfile.cshtml" />
+    <Content Include="Views\NavigationBar\MyVideos.cshtml" />
+    <Content Include="Views\NavigationBar\Index.cshtml" />
+    <Content Include="Views\NavigationBar\Upload.cshtml" />
+    <Content Include="Views\NavigationBar\Transactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Misc\" />
+    <Folder Include="Views\Trans\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

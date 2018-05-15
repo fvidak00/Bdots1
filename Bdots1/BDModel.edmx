@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CertUser">
           <Key>
             <PropertyRef Name="certUserID" />
@@ -15,6 +15,7 @@
           <Property Name="lastName" Type="nvarchar" MaxLength="50" />
           <Property Name="balance" Type="decimal" Precision="18" Scale="9" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="320" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -108,8 +109,7 @@
             <End Role="Video" EntitySet="Video" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -126,6 +126,7 @@
           <NavigationProperty Name="PaymentsSent" Relationship="Self.FK__Payment__payer__2F10007B" FromRole="CertUser" ToRole="Payment" />
           <NavigationProperty Name="PaymentsReceived" Relationship="Self.FK__Payment__receive__300424B4" FromRole="CertUser" ToRole="Payment" />
           <NavigationProperty Name="Videos" Relationship="Self.FK__Video__userID__2B3F6F97" FromRole="CertUser" ToRole="Video" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -233,6 +234,7 @@
           <EntitySetMapping Name="CertUsers">
             <EntityTypeMapping TypeName="BDModel.CertUser">
               <MappingFragment StoreEntitySet="CertUser">
+                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="certUserID" ColumnName="certUserID" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
