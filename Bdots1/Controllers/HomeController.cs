@@ -13,17 +13,23 @@ namespace Bdots1.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult MyProfile()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult MyVideos()
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Upload()
+        {
+            ViewBag.Message = "Upload page";
             return View();
         }
     }
