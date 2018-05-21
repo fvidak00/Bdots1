@@ -30,8 +30,8 @@ namespace Bdots1.Controllers
 
 
 
-            return Redirect("~");
-            //return RedirectToAction("VideoPlayer","Misc", new { id });
+            //return Redirect("~");
+            return RedirectToAction("VideoPlayer","Misc", new { id });
         }
 
         public ActionResult MyProfile()
