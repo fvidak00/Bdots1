@@ -27,12 +27,18 @@
                     <li>@Html.ActionLink("Upload", "Upload", "NavigationBar")</li>
                     <li>@Html.ActionLink("My Transactions", "Transactions", "NavigationBar")</li>
                     <li>@Html.ActionLink("Registration", "Registration", "Registration")</li>
-                    <li>@Html.ActionLink("Logout", "Index", "NavigationBar")</li>
+                    <li>@Html.ActionLink("Logout", "Index", "Login")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @{ 
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
         @RenderBody()
         <hr />
         <footer>
