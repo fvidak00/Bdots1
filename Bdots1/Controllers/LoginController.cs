@@ -23,12 +23,19 @@ namespace Bdots1.Controllers
                 {
                     return View("Index", userModel);
                 }
-
-
-
-                return View();
+                else
+                {
+                    Session["userID"] = userDetails.certUserID;
+                    return RedirectToAction("Index", "NavigationBar");
+                }
 
             }
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
     }

@@ -23,16 +23,23 @@
                     <li>@Html.ActionLink("My Profile", "MyProfile", "NavigationBar")</li>
                     <li>@Html.ActionLink("My Videos", "MyVideos", "NavigationBar")</li>
                     <li>@Html.ActionLink("Upload", "Upload", "NavigationBar")</li>
-                    <li>@Html.ActionLink("My Transactions","Transactions", "NavigationBar")</li>
+                    <li>@Html.ActionLink("My Transactions", "Transactions", "NavigationBar")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @{ 
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Basic Draft of the Solution</p>
+            <a href="@Url.Action("Logout", "Login")">Logout</a>
         </footer>
     </div>
 
