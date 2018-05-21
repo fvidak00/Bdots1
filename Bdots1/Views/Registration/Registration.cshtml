@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registration</h2>
+
+
+<body>
+    <div data-ng-app="myApp" data-ng-controller="registrationCtrl">
+        <div>
+            
+            First name:<input type="text" name="certuser.firstname" data-ng-model="certuser.firstname" /><br />
+            <br />
+            Last name:<input type="text" name="certuser.lastname" data-ng-model="certuser.lastname" /><br />
+            <br />
+            Username:<input type="text" name="certuser.username" data-ng-model="certuser.username" /><br />
+            <br />
+            Email:<input type="text" name="certuser.email" data-ng-model="certuser.email" /><br />
+            <br />
+            Password:<input type="password" name="certuser.password" data-ng-model="certuser.password" /><br />
+            <br />
+            Balance:<input type="text" name="certuser.balance" data-ng-model="certuser.balance" /><br />
+            <br />
+            <input type="button" value="Save" name="btnSave" ng-click="savedata(certuser)" />
+        </div>
+       
+    </div>
+</body>

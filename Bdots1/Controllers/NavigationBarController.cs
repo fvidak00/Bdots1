@@ -63,5 +63,11 @@ namespace Bdots1.Controllers
                                select t;
             return View(transactions);
         }
+
+        //public ActionResult Registration()
+        //{
+        //    ViewBag.Message = "Registration";
+        //    return View();
+        //}
     }
 }

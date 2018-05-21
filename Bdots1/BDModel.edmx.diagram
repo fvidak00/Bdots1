@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="32fdc7d3b1d046179e06aa89c308515e" Name="Diagram1" ZoomLevel="150">
         <EntityTypeShape EntityType="BDModel.CertUser" Width="1.875" PointX="0.625" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BDModel.Payment" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BDModel.Video" Width="1.5" PointX="3.625" PointY="5" IsExpanded="true" />
+
         <AssociationConnector Association="BDModel.FK__Payment__payer__2F10007B" ManuallyRouted="false" />
         <AssociationConnector Association="BDModel.FK__Payment__receive__300424B4" ManuallyRouted="false" />
         <AssociationConnector Association="BDModel.FK__Video__userID__2B3F6F97" ManuallyRouted="false" />
