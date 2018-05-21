@@ -13,9 +13,10 @@ myApp.controller('registrationCtrl', function ($scope, $http) {
 			.then(function succesCallback(response) {
 				debugger;
 				$scope.certuser = response.data;
-				alert("Uspijesna registracija korisnika");
+                alert("Uspijesna registracija korisnika");
+                window.location.reload();
 			}, function errorCallback(response) {
-				alert("jebe post");
+                alert("jebe post");
 			});
 
 	}
