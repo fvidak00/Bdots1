@@ -30,16 +30,29 @@ namespace Bdots1.Controllers
 
 
 
-            return Redirect("~");
+            return Redirect("~/NavigationBar/Index");
             //return RedirectToAction("VideoPlayer","Misc", new { id });
         }
 
         public ActionResult MyProfile()
         {
-        
+            int id = (int)Session["userID"];
+
+            var result = (from c in db.CertUsers
+                         where c.certUserID == id
+                         select c).SingleOrDefault();
+                         //{
+                         //    c.username,
+                         //    c.firstName,
+                         //    c.lastName,
+                         //    c.balance,
+                         //    c.email,
+                         //};
 
 
-            return View();
+
+
+            return View(result);
         }
 
         public ActionResult MyVideos()
