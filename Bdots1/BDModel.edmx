@@ -138,9 +138,9 @@
           <Property Name="receiver" Type="Int32" Nullable="false" />
           <Property Name="paymentDatetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="paymentSum" Type="Decimal" Precision="18" Scale="9" Nullable="false" />
-          <NavigationProperty Name="Payer" Relationship="Self.FK__Payment__payer__2F10007B" FromRole="Payment" ToRole="CertUser" />
-          <NavigationProperty Name="Receiver" Relationship="Self.FK__Payment__receive__300424B4" FromRole="Payment" ToRole="CertUser" />
-          <NavigationProperty Name="Video" Relationship="Self.FK__Payment__videoID__2E1BDC42" FromRole="Payment" ToRole="Video" />
+          <NavigationProperty Name="Payers" Relationship="Self.FK__Payment__payer__2F10007B" FromRole="Payment" ToRole="CertUser" />
+          <NavigationProperty Name="Receivers" Relationship="Self.FK__Payment__receive__300424B4" FromRole="Payment" ToRole="CertUser" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK__Payment__videoID__2E1BDC42" FromRole="Payment" ToRole="Video" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
