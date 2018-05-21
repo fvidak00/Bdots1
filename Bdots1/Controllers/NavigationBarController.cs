@@ -39,5 +39,11 @@ namespace Bdots1.Controllers
             ViewBag.Message = "Transactions";
             return View();
         }
+
+        //public ActionResult Registration()
+        //{
+        //    ViewBag.Message = "Registration";
+        //    return View();
+        //}
     }
 }
