@@ -11,7 +11,8 @@ namespace Bdots1
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CertUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,11 +24,13 @@ namespace Bdots1
         }
     
         public int certUserID { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         public string username { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public decimal balance { get; set; }
         public string email { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

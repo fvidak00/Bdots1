@@ -21,8 +21,8 @@ namespace Bdots1
         public System.DateTime paymentDatetime { get; set; }
         public decimal paymentSum { get; set; }
     
-        public virtual CertUser Payer { get; set; }
-        public virtual CertUser Receiver { get; set; }
-        public virtual Video Video { get; set; }
+        public virtual CertUser Payers { get; set; }
+        public virtual CertUser Receivers { get; set; }
+        public virtual Video Videos { get; set; }
     }
 }
