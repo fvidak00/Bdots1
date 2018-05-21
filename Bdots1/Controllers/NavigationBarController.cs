@@ -25,15 +25,12 @@ namespace Bdots1.Controllers
         public ActionResult MyProfile()
         {
             ViewBag.Message = "Your profile";
-
-
             return View();
         }
 
         public ActionResult MyVideos()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -46,7 +43,11 @@ namespace Bdots1.Controllers
         public ActionResult Transactions()
         {
             ViewBag.Message = "Transactions";
-            return View();
+
+            var transactions = from t in db.Payments
+                               select t;
+
+            return View(transactions);
         }
     }
 }
