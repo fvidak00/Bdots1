@@ -58,7 +58,10 @@ namespace Bdots1.Controllers
         public ActionResult Transactions()
         {
             ViewBag.Message = "Transactions";
-            return View();
+
+            var transactions = from t in db.Payments
+                               select t;
+            return View(transactions);
         }
     }
 }
