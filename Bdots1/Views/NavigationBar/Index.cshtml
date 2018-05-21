@@ -18,9 +18,11 @@
     <div class="row">
         <div class="col-md-4">
             <h2>
-                <a href="@item.filepath">
-                @item.title
-                </a>
+                @*<a href="@item.filepath">
+                    @item.title
+                </a>*@
+
+                @Html.ActionLink(item.title, "IncrementViewCount", new { id = item.videoID })
             </h2>
             @*<p>
                 ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that

@@ -16,15 +16,27 @@ namespace Bdots1.Controllers
             var videos = from v in db.Videos
                          select v;
 
-
-
                         
             return View(videos);
+        }
+        public ActionResult IncrementViewCount(int? id)
+        {
+            var result = (from v in db.Videos
+                             where v.videoID == id
+                             select v).SingleOrDefault();
+
+            result.viewsCount++; 
+            db.SaveChanges();
+
+
+
+            return Redirect("~");
+            //return RedirectToAction("VideoPlayer","Misc", new { id });
         }
 
         public ActionResult MyProfile()
         {
-            ViewBag.Message = "Your profile";
+        
 
 
             return View();
