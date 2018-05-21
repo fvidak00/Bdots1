@@ -6,6 +6,8 @@
     <title>@ViewBag.Title - Basic Draft of the Solution</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/RegistrationScript.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,6 +26,8 @@
                     <li>@Html.ActionLink("My Videos", "MyVideos", "NavigationBar")</li>
                     <li>@Html.ActionLink("Upload", "Upload", "NavigationBar")</li>
                     <li>@Html.ActionLink("My Transactions", "Transactions", "NavigationBar")</li>
+                    <li>@Html.ActionLink("Registration", "Registration", "Registration")</li>
+                    <li>@Html.ActionLink("Logout", "Index", "Login")</li>
                 </ul>
             </div>
         </div>
@@ -39,7 +43,6 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Basic Draft of the Solution</p>
-            <a href="@Url.Action("Logout", "Login")">Logout</a>
         </footer>
     </div>
 
