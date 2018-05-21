@@ -8,9 +8,18 @@ namespace Bdots1.Controllers
 {
     public class NavigationBarController : Controller
     {
+        private BDEntities db = new BDEntities();
+
         public ActionResult Index()
         {
-            return View();
+
+            var videos = from v in db.Videos
+                         select v;
+
+
+
+                        
+            return View(videos);
         }
 
         public ActionResult MyProfile()
