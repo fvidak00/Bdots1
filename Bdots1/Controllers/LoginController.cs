@@ -21,6 +21,8 @@ namespace Bdots1.Controllers
 
                 if(userDetails == null)
                 {
+                    Session["userID"] = null;
+
                     return View("Index", userModel);
                 }
                 else
@@ -35,6 +37,7 @@ namespace Bdots1.Controllers
         public ActionResult LogOut()
         {
             Session.Abandon();
+            // ili ovo  Session["userID"]=null;
             return RedirectToAction("Index", "Login");
         }
 

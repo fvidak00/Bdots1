@@ -13,9 +13,12 @@ myApp.controller('registrationCtrl', function ($scope, $http,$window) {
             .then(function succesCallback(response) {
                 $scope.certuser = response.data;
                 alert("Uspijesna registracija korisnika");
-                $window.location.href("..");
+                window.location.href="../Login/Index";
             }, function errorCallback(response) {
+
+                debugger;
                 alert("jebe post");
+                $window.location.href("/Login/Index");
             });
 
     };
