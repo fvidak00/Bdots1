@@ -1,6 +1,6 @@
 ﻿var myApp = angular.module('myApp', []);
 
-myApp.controller('registrationCtrl', function ($scope, $http) {
+myApp.controller('registrationCtrl', function ($scope, $http,$window) {
 
 
 
@@ -13,9 +13,12 @@ myApp.controller('registrationCtrl', function ($scope, $http) {
             .then(function succesCallback(response) {
                 $scope.certuser = response.data;
                 alert("Uspijesna registracija korisnika");
-                window.location.reload();
+                window.location.href="../Login/Index";
             }, function errorCallback(response) {
+
+                debugger;
                 alert("jebe post");
+                $window.location.href("/Login/Index");
             });
 
     };
