@@ -58,16 +58,18 @@ namespace Bdots1.Controllers
                          //};
 
 
-
-
             return View(result);
         }
 
         public ActionResult MyVideos()
         {
-            ViewBag.Message = "Your contact page.";
+            int sid = (int)Session["userID"];
+            var videos = from v in db.Videos
+                         where v.userID==sid
+                         select v;
 
-            return View();
+
+            return View(videos);
         }
 
         public ActionResult Upload()
@@ -91,5 +93,35 @@ namespace Bdots1.Controllers
         //    ViewBag.Message = "Registration";
         //    return View();
         //}
+
+
+
+        public ActionResult Edit()
+        {
+            int id=(int)Session["userID"];
+            var result = db.CertUsers.Single(m => m.certUserID == id);
+            return View(result);
+
+        }
+        [HttpPost]
+        public ActionResult Edit(FormCollection collection)
+        {
+            try
+            {
+                int id= (int)Session["userID"]; 
+                var result = db.CertUsers.Single(m => m.certUserID == id);
+                if (TryUpdateModel(result))
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("MyProfile");
+                }
+                return View(result);
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
     }
 }
