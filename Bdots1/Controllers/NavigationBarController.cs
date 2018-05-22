@@ -57,9 +57,13 @@ namespace Bdots1.Controllers
 
         public ActionResult MyVideos()
         {
-            ViewBag.Message = "Your contact page.";
+            int sid = (int)Session["userID"];
+            var videos = from v in db.Videos
+                         where v.userID==sid
+                         select v;
 
-            return View();
+
+            return View(videos);
         }
 
         public ActionResult Upload()
