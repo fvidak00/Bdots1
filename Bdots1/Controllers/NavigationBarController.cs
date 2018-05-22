@@ -30,8 +30,6 @@ namespace Bdots1.Controllers
             db.SaveChanges();
 
             return RedirectToAction("VideoPlayer", new { id });
-            //return Redirect("~/NavigationBar/Index");
-            //return RedirectToAction("VideoPlayer","Misc", new { id2 = id});
         }
 
         public ActionResult VideoPlayer(int? id)
@@ -49,14 +47,6 @@ namespace Bdots1.Controllers
             var result = (from c in db.CertUsers
                          where c.certUserID == id
                          select c).SingleOrDefault();
-                         //{
-                         //    c.username,
-                         //    c.firstName,
-                         //    c.lastName,
-                         //    c.balance,
-                         //    c.email,
-                         //};
-
 
             return View(result);
         }
@@ -80,21 +70,18 @@ namespace Bdots1.Controllers
 
         public ActionResult Transactions()
         {
-            ViewBag.Message = "Transactions";
-            int sid = (int)Session["userID"];
-            var transactions = from t in db.Payments
-                               where (t.Payers.certUserID==sid || t.Receivers.certUserID==sid)
-                               select t;
-            return View(transactions);
+            if (Session["userID"] != null)
+            {
+                ViewBag.Message = "Transactions";
+                int sid = (int)Session["userID"];
+                var transactions = from t in db.Payments
+                                   where (t.Payers.certUserID == sid || t.Receivers.certUserID == sid)
+                                   select t;
+                return View(transactions);
+            }
+            else
+                return View();
         }
-
-        //public ActionResult Registration()
-        //{
-        //    ViewBag.Message = "Registration";
-        //    return View();
-        //}
-
-
 
         public ActionResult Edit()
         {

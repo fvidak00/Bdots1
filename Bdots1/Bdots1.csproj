@@ -1066,7 +1066,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\MyVideos\" />
     <Folder Include="Views\Trans\" />
   </ItemGroup>
   <ItemGroup>
