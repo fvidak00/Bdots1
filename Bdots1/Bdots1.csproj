@@ -178,6 +178,7 @@
     <Compile Include="Controllers\NavigationBarController.cs" />
     <Compile Include="Controllers\MiscController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1029,8 +1030,8 @@
     <Content Include="Views\NavigationBar\Transactions.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Registration\Registration.cshtml" />
+    <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Misc\VideoPlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
