@@ -9,6 +9,12 @@ namespace Bdots1.Controllers
     public class MiscController : Controller
     {
         // GET: Misc
+
+        public ActionResult VideoPlayer(int? id)
+        {
+
+            return View();
+        }
         
     }
 }

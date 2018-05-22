@@ -1,4 +1,4 @@
-﻿var myApp = angular.module('myApp', [])
+﻿var myApp = angular.module('myApp', []);
 
 myApp.controller('registrationCtrl', function ($scope, $http,$window) {
 
@@ -44,5 +44,6 @@ myApp.controller('uploadController', function ($scope, $http, $window) {
 
 
 	}
+
 
 });

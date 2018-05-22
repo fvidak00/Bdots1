@@ -174,6 +174,7 @@
     <Compile Include="CertUser.cs">
       <DependentUpon>BDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NavigationBarController.cs" />
     <Compile Include="Controllers\MiscController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -1030,11 +1031,12 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Registration\Registration.cshtml" />
     <Content Include="Views\Upload\Upload.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Misc\" />
+    <Folder Include="Views\MyVideos\" />
     <Folder Include="Views\Trans\" />
   </ItemGroup>
   <ItemGroup>

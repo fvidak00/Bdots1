@@ -23,15 +23,20 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("My Profile", "MyProfile", "NavigationBar")</li>
                     <li>@Html.ActionLink("My Videos", "MyVideos", "NavigationBar")</li>
-                    
                     <li>@Html.ActionLink("My Transactions", "Transactions", "NavigationBar")</li>
-                    <li>@Html.ActionLink("Registration", "Registration", "Registration")</li>
                     <li>@Html.ActionLink("Upload", "Upload", "Upload")</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @{ 
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("~/Login/Index");
+            }
+        }
         @RenderBody()
         <hr />
         <footer>

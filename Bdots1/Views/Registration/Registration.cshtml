@@ -1,13 +1,15 @@
 ﻿
 @{
     ViewBag.Title = "Registration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 <h2>Registration</h2>
 
 
 <body>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/RegistrationScript.js"></script>
     <div data-ng-app="myApp" data-ng-controller="registrationCtrl">
         <div>
             <script src="~/Scripts/angular.min.js"></script>
@@ -26,6 +28,6 @@
             <br />
             <input type="button" value="Save" name="btnSave" ng-click="savedata(certuser)" />
         </div>
-       
+
     </div>
 </body>

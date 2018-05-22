@@ -8,24 +8,60 @@ namespace Bdots1.Controllers
 {
     public class NavigationBarController : Controller
     {
+        private BDEntities db = new BDEntities();
+
         public ActionResult Index()
         {
-            return View();
+
+            var videos = from v in db.Videos
+                         select v;
+
+                        
+            return View(videos);
+        }
+        public ActionResult IncrementViewCount(int? id)
+        {
+            var result = (from v in db.Videos
+                             where v.videoID == id
+                             select v).SingleOrDefault();
+
+            result.viewsCount++; 
+            db.SaveChanges();
+
+
+
+            return Redirect("~/NavigationBar/Index");
+            //return RedirectToAction("VideoPlayer","Misc", new { id });
         }
 
         public ActionResult MyProfile()
         {
-            ViewBag.Message = "Your profile";
+            int id = (int)Session["userID"];
+
+            var result = (from c in db.CertUsers
+                         where c.certUserID == id
+                         select c).SingleOrDefault();
+                         //{
+                         //    c.username,
+                         //    c.firstName,
+                         //    c.lastName,
+                         //    c.balance,
+                         //    c.email,
+                         //};
 
 
-            return View();
+            return View(result);
         }
 
         public ActionResult MyVideos()
         {
-            ViewBag.Message = "Your contact page.";
+            int sid = (int)Session["userID"];
+            var videos = from v in db.Videos
+                         where v.userID==sid
+                         select v;
 
-            return View();
+
+            return View(videos);
         }
 
         public ActionResult Upload()
@@ -37,7 +73,10 @@ namespace Bdots1.Controllers
         public ActionResult Transactions()
         {
             ViewBag.Message = "Transactions";
-            return View();
+
+            var transactions = from t in db.Payments
+                               select t;
+            return View(transactions);
         }
 
         //public ActionResult Registration()
@@ -45,5 +84,35 @@ namespace Bdots1.Controllers
         //    ViewBag.Message = "Registration";
         //    return View();
         //}
+
+
+
+        public ActionResult Edit()
+        {
+            int id=(int)Session["userID"];
+            var result = db.CertUsers.Single(m => m.certUserID == id);
+            return View(result);
+
+        }
+        [HttpPost]
+        public ActionResult Edit(FormCollection collection)
+        {
+            try
+            {
+                int id= (int)Session["userID"]; 
+                var result = db.CertUsers.Single(m => m.certUserID == id);
+                if (TryUpdateModel(result))
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("MyProfile");
+                }
+                return View(result);
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
     }
 }
