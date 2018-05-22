@@ -19,6 +19,7 @@ namespace Bdots1.Controllers
                         
             return View(videos);
         }
+
         public ActionResult IncrementViewCount(int? id)
         {
             var result = (from v in db.Videos
@@ -28,10 +29,17 @@ namespace Bdots1.Controllers
             result.viewsCount++; 
             db.SaveChanges();
 
+            return RedirectToAction("VideoPlayer", new { id });
+            //return Redirect("~/NavigationBar/Index");
+            //return RedirectToAction("VideoPlayer","Misc", new { id2 = id});
+        }
 
-
-            return Redirect("~/NavigationBar/Index");
-            //return RedirectToAction("VideoPlayer","Misc", new { id });
+        public ActionResult VideoPlayer(int? id)
+        {
+            var result = (from v in db.Videos
+                               where v.videoID == id
+                               select v).FirstOrDefault();
+            return View(result);
         }
 
         public ActionResult MyProfile()
@@ -73,8 +81,9 @@ namespace Bdots1.Controllers
         public ActionResult Transactions()
         {
             ViewBag.Message = "Transactions";
-
+            int sid = (int)Session["userID"];
             var transactions = from t in db.Payments
+                               where (t.Payers.certUserID==sid || t.Receivers.certUserID==sid)
                                select t;
             return View(transactions);
         }
