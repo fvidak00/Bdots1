@@ -7,7 +7,7 @@
 
 <h2>My Profile</h2>
 
-@using (Html.BeginForm("MyProfile","NavigationBar",FormMethod.Get))
+@using (Html.BeginForm("Edit", "NavigationBar", FormMethod.Post, new { id = Model.certUserID }))
 {
     @Html.AntiForgeryToken()
 
@@ -19,7 +19,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.username)
             @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.balance, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.balance)
             @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })
         </div>
     </div>
