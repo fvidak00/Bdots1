@@ -14,7 +14,7 @@ myApp.controller('registrationCtrl', function ($scope, $http,$window) {
 				debugger;
 				$scope.certuser = response.data;
 				alert("Uspijesna registracija korisnika");
-				$window.location.href = '~/NavigationBar/Index';
+				$window.location.href = '../NavigationBar/Index';
 
 			}, function errorCallback(response) {
 				alert("jebe post");

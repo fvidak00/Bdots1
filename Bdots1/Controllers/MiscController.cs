@@ -9,11 +9,19 @@ namespace Bdots1.Controllers
     public class MiscController : Controller
     {
         // GET: Misc
+        private BDEntities db = new BDEntities();
 
-        public ActionResult VideoPlayer(int? id)
+    //    public ActionResult VideoPlayer(int? id)
+
+        public ActionResult VideoPlayer()
         {
-
-            return View();
+            //int asd = (int)id;
+            var result = from v in db.Videos
+                         //where v.videoID == id
+                         select v;
+            var rf= result.FirstOrDefault();
+            return View(rf);
+            
         }
         
     }
