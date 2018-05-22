@@ -15,10 +15,7 @@ myApp.controller('registrationCtrl', function ($scope, $http,$window) {
                 alert("Uspijesna registracija korisnika");
                 window.location.href="../Login/Index";
             }, function errorCallback(response) {
-
-                debugger;
                 alert("jebe post");
-                $window.location.href("/Login/Index");
             });
 
     };
