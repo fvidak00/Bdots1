@@ -10,51 +10,61 @@ namespace Bdots1.Controllers
     {
         private BDEntities db = new BDEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int insufficientFunds = 0)
         {
-
+            if (insufficientFunds == 0)
+                ViewBag.Message = "";
+            else
+                ViewBag.Message = "Not enough gold, milord.";
             var videos = from v in db.Videos
                          select v;
 
-                        
+
             return View(videos);
         }
 
         public ActionResult IncrementViewCount(int? id)
         {
             int sid = (int)Session["userID"];
-            var result = (from v in db.Videos
-                             where v.videoID == id
-                             select v).SingleOrDefault();
-            if(result.CertUser.balance < result.price && result.userID!=sid)
-            {
 
-                //tu dodje neka poruka
-                return View();
+            var result = (from v in db.Videos
+                          where v.videoID == id
+                          select v).SingleOrDefault();
+
+            var payer = (from p in db.CertUsers
+                         where p.certUserID == sid
+                         select p).SingleOrDefault();
+
+            var receiver = (from r in db.CertUsers
+                            where r.certUserID == result.userID
+                            select r).SingleOrDefault();
+
+
+            if (payer.balance < result.price && result.userID != sid)
+            {
+                return RedirectToAction("Index", new { insufficientFunds = 1});
             }
             else
             {
                 result.viewsCount++;
-                if(result.userID != sid)
+                if (result.userID != sid)
                 {
-                    var payer = (from p in db.CertUsers
-                                where p.certUserID == sid
-                                select p).SingleOrDefault();
+                    receiver.balance += result.price;
                     payer.balance -= result.price;
                 }
                 db.SaveChanges();
 
                 return RedirectToAction("VideoPlayer", new { id });
             }
-            
+
         }
 
 
         public ActionResult VideoPlayer(int? id)
         {
             var result = (from v in db.Videos
-                               where v.videoID == id
-                               select v).FirstOrDefault();
+                          where v.videoID == id
+                          select v).FirstOrDefault();
             return View(result);
         }
 
@@ -63,8 +73,8 @@ namespace Bdots1.Controllers
             int id = (int)Session["userID"];
 
             var result = (from c in db.CertUsers
-                         where c.certUserID == id
-                         select c).SingleOrDefault();
+                          where c.certUserID == id
+                          select c).SingleOrDefault();
 
             return View(result);
         }
@@ -73,7 +83,7 @@ namespace Bdots1.Controllers
         {
             int sid = (int)Session["userID"];
             var videos = from v in db.Videos
-                         where v.userID==sid
+                         where v.userID == sid
                          select v;
 
 
@@ -103,7 +113,7 @@ namespace Bdots1.Controllers
 
         public ActionResult Edit()
         {
-            int id=(int)Session["userID"];
+            int id = (int)Session["userID"];
             var result = db.CertUsers.Single(m => m.certUserID == id);
             return View(result);
 
@@ -113,7 +123,7 @@ namespace Bdots1.Controllers
         {
             try
             {
-                int id= (int)Session["userID"]; 
+                int id = (int)Session["userID"];
                 var result = db.CertUsers.Single(m => m.certUserID == id);
                 if (TryUpdateModel(result))
                 {
@@ -137,8 +147,8 @@ namespace Bdots1.Controllers
         public ActionResult DeleteVideo(int? id)
         {
             var dVideo = (from v in db.Videos
-                         where v.videoID == id
-                         select v).SingleOrDefault();
+                          where v.videoID == id
+                          select v).SingleOrDefault();
 
             db.Videos.Remove(dVideo);
             db.SaveChanges();

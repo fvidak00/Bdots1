@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<Bdots1.Video>
-    
+
 @{
     ViewBag.Title = "Bdots Home";
 }
 
+<script type="text/javascript">
+    var notEnoughGoldMessage = "@ViewBag.Message";
+    if (!(notEnoughGoldMessage===""))
+        alert(notEnoughGoldMessage);
+</script>
 
 @foreach (var item in Model)
 {
@@ -13,13 +18,15 @@
             <h2>
 
                 @Html.ActionLink(item.title, "IncrementViewCount", new { id = item.videoID })
-            </h2></div>
+            </h2>
+        </div>
 
 
 
 
         <div class="col-md-4">
-            <p background-color="gray">@item.about</p> </div>
+            <p background-color="gray">@item.about</p>
+        </div>
 
 
 
@@ -27,6 +34,7 @@
         <div class="col-md-4">
             <p>Owner > @item.CertUser.username </p>
             <p>Views > @item.viewsCount </p>
-            <p>Price > @item.price</p> </div>
+            <p>Price > @item.price</p>
+        </div>
     </div>
 }
