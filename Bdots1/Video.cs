@@ -23,7 +23,7 @@ namespace Bdots1
     
         public int videoID { get; set; }
         public string title { get; set; }
-       // [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0,00}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0,00}")]
         public decimal price { get; set; }
         public int viewsCount { get; set; }
         public string filepath { get; set; }
