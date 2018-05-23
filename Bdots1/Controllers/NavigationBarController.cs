@@ -131,8 +131,26 @@ namespace Bdots1.Controllers
 
         public ActionResult EditVideo(int? id)
         {
-
-            return View();
+            var result = db.Videos.Single(m => m.videoID == id);
+            return View(result);
+        }
+        [HttpPost]
+        public ActionResult EditVideo(int? id, FormCollection coll)
+        {
+            try
+            {
+                var result = db.Videos.Single(m => m.videoID == id);
+                if (TryUpdateModel(result))
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("MyVideos");
+                }
+                return View(result);
+            }
+            catch
+            {
+                return View();
+            }
         }
         public ActionResult DeleteVideo(int? id)
         {
