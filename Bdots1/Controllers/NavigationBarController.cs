@@ -42,7 +42,7 @@ namespace Bdots1.Controllers
 
             if (payer.balance < result.price && result.userID != sid)
             {
-                return RedirectToAction("Index", new { insufficientFunds = 1});
+                return RedirectToAction("Index", new { insufficientFunds = 1 });
             }
             else
             {
@@ -62,47 +62,66 @@ namespace Bdots1.Controllers
 
         public ActionResult VideoPlayer(int? id)
         {
-            var result = (from v in db.Videos
-                          where v.videoID == id
-                          select v).FirstOrDefault();
-            return View(result);
+            if (id != null)
+            {
+                var result = (from v in db.Videos
+                              where v.videoID == id
+                              select v).FirstOrDefault();
+                return View(result);
+            }
+            else
+                return Redirect("~/Login/Index");
+
         }
 
         public ActionResult MyProfile(int profileUpdated = 0)
         {
-            switch(profileUpdated)
+            try
             {
-                
-                case 1:
-                    ViewBag.Message = "Profile updated successfully.";
-                    break;
-                case 2:
-                    ViewBag.Message = "Profile update failed.";
-                    break;
-                case 0:
-                default:
-                    ViewBag.Message = "";
-                    break;
+                int id = (int)Session["userID"];
+                switch (profileUpdated)
+                {
+
+                    case 1:
+                        ViewBag.Message = "Profile updated successfully.";
+                        break;
+                    case 2:
+                        ViewBag.Message = "Profile update failed.";
+                        break;
+                    case 0:
+                    default:
+                        ViewBag.Message = "";
+                        break;
+                }
+
+                var result = (from c in db.CertUsers
+                              where c.certUserID == id
+                              select c).SingleOrDefault();
+                return View(result);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
             }
 
-            int id = (int)Session["userID"];
-
-            var result = (from c in db.CertUsers
-                          where c.certUserID == id
-                          select c).SingleOrDefault();
-
-            return View(result);
         }
 
         public ActionResult MyVideos()
         {
-            int sid = (int)Session["userID"];
-            var videos = from v in db.Videos
-                         where v.userID == sid
-                         select v;
+            try
+            {
+                int sid = (int)Session["userID"];
+                var videos = from v in db.Videos
+                             where v.userID == sid
+                             select v;
 
 
-            return View(videos);
+                return View(videos);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
+            }
         }
 
         public ActionResult Upload()
@@ -123,7 +142,7 @@ namespace Bdots1.Controllers
                 return View(transactions);
             }
             else
-                return View();
+                return Redirect("~/Login/Index");
         }
 
         public ActionResult Edit()
@@ -143,9 +162,9 @@ namespace Bdots1.Controllers
                 if (TryUpdateModel(result))
                 {
                     db.SaveChanges();
-                    return RedirectToAction("MyProfile",new { profileUpdated = 1});
+                    return RedirectToAction("MyProfile", new { profileUpdated = 1 });
                 }
-                return RedirectToAction("MyProfile",new { profileUpdated = 2});
+                return RedirectToAction("MyProfile", new { profileUpdated = 2 });
             }
             catch
             {
