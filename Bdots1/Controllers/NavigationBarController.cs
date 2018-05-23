@@ -68,8 +68,23 @@ namespace Bdots1.Controllers
             return View(result);
         }
 
-        public ActionResult MyProfile()
+        public ActionResult MyProfile(int profileUpdated = 0)
         {
+            switch(profileUpdated)
+            {
+                
+                case 1:
+                    ViewBag.Message = "Profile updated successfully.";
+                    break;
+                case 2:
+                    ViewBag.Message = "Profile update failed.";
+                    break;
+                case 0:
+                default:
+                    ViewBag.Message = "";
+                    break;
+            }
+
             int id = (int)Session["userID"];
 
             var result = (from c in db.CertUsers
@@ -121,20 +136,20 @@ namespace Bdots1.Controllers
         [HttpPost]
         public ActionResult Edit(FormCollection collection)
         {
+            int id = (int)Session["userID"];
+            var result = db.CertUsers.Single(m => m.certUserID == id);
             try
             {
-                int id = (int)Session["userID"];
-                var result = db.CertUsers.Single(m => m.certUserID == id);
                 if (TryUpdateModel(result))
                 {
                     db.SaveChanges();
-                    return RedirectToAction("MyProfile");
+                    return RedirectToAction("MyProfile",new { profileUpdated = 1});
                 }
-                return View(result);
+                return RedirectToAction("MyProfile",new { profileUpdated = 2});
             }
             catch
             {
-                return View();
+                return RedirectToAction("MyProfile", new { profileUpdated = 2 });
             }
 
         }
