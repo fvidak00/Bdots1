@@ -1,23 +1,25 @@
 ﻿
 @{
     ViewBag.Title = "Upload";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Upload</h2>
-<body ng-app="myApp" ng-controller="uploadController">
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/RegistrationScript.js"></script>
+<body>
 
-    <script src="~/Scripts/RegistrationScript.js"></script>
-    <script src="~/Scripts/angular.min.js"></script>
-    Video URL:<input type="text" name="video.filepath" data-ng-model="video.filepath" /><br />
-    <br />
-    Title:<input type="text" name="video.title" data-ng-model="video.title" /><br />
-    <br />
-    Price:<input type="text" name="video.price" data-ng-model="video.price" /><br />
-    <br />
-    Video URL:<textarea name="video.about" form="usrform" data-ng-model="video.about"></textarea>
-    <br />
-    <input type="button" value="Save" name="btnSave" ng-click="savevideo(video)" />
 
+
+    <div data-ng-app="myApp" data-ng-controller="uploadController">
+        Video URL:<input type="text" name="video.filepath" data-ng-model="video.filepath" /><br />
+        <br />
+        Title:<input type="text" name="video.title" data-ng-model="video.title" /><br />
+        <br />
+        Price:<input type="text" name="video.price" data-ng-model="video.price" /><br />
+        <br />
+        About:<textarea name="video.about" form="usrform" data-ng-model="video.about"></textarea>
+        <br />
+        <input type="button" value="Save" name="btnSave" ng-click="savevideo(video)" />
+    </div>
 </body>
 

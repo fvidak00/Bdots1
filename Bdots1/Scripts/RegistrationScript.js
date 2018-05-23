@@ -13,11 +13,11 @@ myApp.controller('registrationCtrl', function ($scope, $http,$window) {
 			.then(function succesCallback(response) {
 				debugger;
 				$scope.certuser = response.data;
-				alert("Uspijesna registracija korisnika");
-				$window.location.href = '~/NavigationBar/Index';
+				alert("Registration successfull");
+				$window.location.href = '/NavigationBar/Index';
 
 			}, function errorCallback(response) {
-				alert("jebe post");
+                alert("Invalid input!");
 			});
 
 	}
@@ -35,11 +35,11 @@ myApp.controller('uploadController', function ($scope, $http, $window) {
 			.then(function succesCallback(response) {
 				debugger;
 				$scope.video = response.data;
-				alert("Uspijesan upload videa");
-				$window.location.href = '../.';
+				alert("Upload successfull");
+                $window.location.href = '/NavigationBar/MyVideos';
 
 			}, function errorCallback(response) {
-				alert("jebe post");
+				alert("Invalid input!");
 			});
 
 
