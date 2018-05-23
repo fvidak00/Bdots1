@@ -146,36 +146,57 @@ namespace Bdots1.Controllers
 
         public ActionResult Edit()
         {
-            int id = (int)Session["userID"];
-            var result = db.CertUsers.Single(m => m.certUserID == id);
-            return View(result);
+            try
+            {
+                int id = (int)Session["userID"];
+                var result = db.CertUsers.Single(m => m.certUserID == id);
+                return View(result);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
+            }
 
         }
         [HttpPost]
         public ActionResult Edit(FormCollection collection)
         {
-            int id = (int)Session["userID"];
-            var result = db.CertUsers.Single(m => m.certUserID == id);
             try
             {
-                if (TryUpdateModel(result))
+                int id = (int)Session["userID"];
+                var result = db.CertUsers.Single(m => m.certUserID == id);
+                try
                 {
-                    db.SaveChanges();
-                    return RedirectToAction("MyProfile", new { profileUpdated = 1 });
+                    if (TryUpdateModel(result))
+                    {
+                        db.SaveChanges();
+                        return RedirectToAction("MyProfile", new { profileUpdated = 1 });
+                    }
+                    return RedirectToAction("MyProfile", new { profileUpdated = 2 });
                 }
-                return RedirectToAction("MyProfile", new { profileUpdated = 2 });
+                catch
+                {
+                    return RedirectToAction("MyProfile", new { profileUpdated = 2 });
+                }
             }
             catch
             {
-                return RedirectToAction("MyProfile", new { profileUpdated = 2 });
+                return Redirect("~/Login/Index");
             }
 
         }
 
         public ActionResult EditVideo(int? id)
         {
-            var result = db.Videos.Single(m => m.videoID == id);
-            return View(result);
+            try
+            {
+                var result = db.Videos.Single(m => m.videoID == id);
+                return View(result);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
+            }
         }
         [HttpPost]
         public ActionResult EditVideo(int? id, FormCollection coll)
@@ -194,6 +215,7 @@ namespace Bdots1.Controllers
             {
                 return View();
             }
+
         }
         public ActionResult DeleteVideo(int? id)
         {
@@ -207,7 +229,7 @@ namespace Bdots1.Controllers
             return RedirectToAction("MyVideos");
         }
 
-        public ActionResult ChangePassword(int nesto=0)
+        public ActionResult ChangePassword(int nesto = 0)
         {
 
             switch (nesto)
@@ -231,7 +253,7 @@ namespace Bdots1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ChangePassword(FormCollection collection,int nesto = 0)
+        public ActionResult ChangePassword(FormCollection collection, int nesto = 0)
         {
 
 
@@ -252,7 +274,7 @@ namespace Bdots1.Controllers
                     {
 
                         result.password = newPass;
-                        
+
                         db.SaveChanges();
 
                         //if (TryUpdateModel(result))
@@ -284,6 +306,6 @@ namespace Bdots1.Controllers
                 return Redirect("~/Login/Index");
             }
         }
-         
+
     }
 }
