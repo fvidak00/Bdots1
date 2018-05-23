@@ -81,7 +81,6 @@ namespace Bdots1.Controllers
                 int id = (int)Session["userID"];
                 switch (profileUpdated)
                 {
-
                     case 1:
                         ViewBag.Message = "Profile updated successfully.";
                         break;
@@ -207,5 +206,84 @@ namespace Bdots1.Controllers
 
             return RedirectToAction("MyVideos");
         }
+
+        public ActionResult ChangePassword(int nesto=0)
+        {
+
+            switch (nesto)
+            {
+
+                case 1:
+                    ViewBag.Message = "Password changed successfully.";
+                    break;
+                case 2:
+                    ViewBag.Message = "Password change failed.";
+                    break;
+                case 3:
+                    ViewBag.Message = "Incorrect old password";
+                    break;
+                case 0:
+                default:
+                    ViewBag.Message = "";
+                    break;
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection collection,int nesto = 0)
+        {
+
+
+            try
+            {
+                int id = (int)Session["userID"];
+                var result = db.CertUsers.Single(m => m.certUserID == id);
+
+                try
+                {
+
+                    string[] passwordi = collection[2].Split(',');
+
+                    string oldPass = passwordi[0];
+                    string newPass = passwordi[1];
+
+                    if (result.password == oldPass)
+                    {
+
+                        result.password = newPass;
+                        
+                        db.SaveChanges();
+
+                        //if (TryUpdateModel(result))
+                        //{
+                        //    db.SaveChanges();
+                        //    return RedirectToAction("ChangePassword", new { profileUpdated = 1 });
+                        //}
+                        //return RedirectToAction("ChangePassword", new { profileUpdated = 2 });
+
+
+
+                        return RedirectToAction("ChangePassword", new { profileUpdated = 1 });
+
+                    }
+                    else
+                    {
+
+                        return RedirectToAction("ChangePassword", new { profileUpdated = 3 });
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("ChangePassword", new { profileUpdated = 2 });
+                }
+
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
+            }
+        }
+         
     }
 }

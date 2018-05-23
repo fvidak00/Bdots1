@@ -1062,6 +1062,7 @@
     <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\NavigationBar\VideoPlayer.cshtml" />
+    <Content Include="Views\NavigationBar\ChangePassword.cshtml" />
     <Content Include="Views\NavigationBar\EditVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
