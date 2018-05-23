@@ -8,21 +8,25 @@
 @foreach (var item in Model)
 {
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>
+<div class="row">
+    <div class="col-md-3">
+        <h2>
 
-                @Html.ActionLink(item.title, "IncrementViewCount", new { id = item.videoID })
-            </h2>
-        </div>
-
-        <div class="col-md-4">
-            <p background-color="gray">@item.about</p>
-        </div>
-
-        <div class="col-md-4">
-            <p>Views > @item.viewsCount </p>
-            <p>Price > @item.price</p>
-        </div>
+            @Html.ActionLink(item.title, "IncrementViewCount", new { id = item.videoID })
+        </h2>
     </div>
+
+    <div class="col-md-3">
+        <p background-color="gray">@item.about</p>
+    </div>
+
+    <div class="col-md-3">
+        <p>Views > @item.viewsCount </p>
+        <p>Price > @item.price</p>
+    </div>
+    <div class="col-md-3">
+        <p>@Html.ActionLink("Edit", "EditVideo", new { id = item.videoID })</p>
+        <p>@Html.ActionLink("Delete", "DeleteVideo", new { id = item.videoID })</p>
+    </div>
+</div>
 }

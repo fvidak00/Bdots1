@@ -22,15 +22,33 @@ namespace Bdots1.Controllers
 
         public ActionResult IncrementViewCount(int? id)
         {
+            int sid = (int)Session["userID"];
             var result = (from v in db.Videos
                              where v.videoID == id
                              select v).SingleOrDefault();
+            if(result.CertUser.balance < result.price && result.userID!=sid)
+            {
 
-            result.viewsCount++; 
-            db.SaveChanges();
+                //tu dodje neka poruka
+                return View();
+            }
+            else
+            {
+                result.viewsCount++;
+                if(result.userID != sid)
+                {
+                    var payer = (from p in db.CertUsers
+                                where p.certUserID == sid
+                                select p).SingleOrDefault();
+                    payer.balance -= result.price;
+                }
+                db.SaveChanges();
 
-            return RedirectToAction("VideoPlayer", new { id });
+                return RedirectToAction("VideoPlayer", new { id });
+            }
+            
         }
+
 
         public ActionResult VideoPlayer(int? id)
         {
@@ -109,6 +127,23 @@ namespace Bdots1.Controllers
                 return View();
             }
 
+        }
+
+        public ActionResult EditVideo(int? id)
+        {
+
+            return View();
+        }
+        public ActionResult DeleteVideo(int? id)
+        {
+            var dVideo = (from v in db.Videos
+                         where v.videoID == id
+                         select v).SingleOrDefault();
+
+            db.Videos.Remove(dVideo);
+            db.SaveChanges();
+
+            return RedirectToAction("MyVideos");
         }
     }
 }
