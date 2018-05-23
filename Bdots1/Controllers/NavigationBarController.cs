@@ -62,47 +62,65 @@ namespace Bdots1.Controllers
 
         public ActionResult VideoPlayer(int? id)
         {
-            var result = (from v in db.Videos
-                          where v.videoID == id
-                          select v).FirstOrDefault();
-            return View(result);
+            if (id != null)
+            {
+                var result = (from v in db.Videos
+                              where v.videoID == id
+                              select v).FirstOrDefault();
+                return View(result);
+            }
+            else
+                return Redirect("~/Login/Index");
+
         }
 
         public ActionResult MyProfile(int profileUpdated = 0)
         {
-            switch (profileUpdated)
+            try
             {
+                int id = (int)Session["userID"];
+                switch (profileUpdated)
+                {
+                    case 1:
+                        ViewBag.Message = "Profile updated successfully.";
+                        break;
+                    case 2:
+                        ViewBag.Message = "Profile update failed.";
+                        break;
+                    case 0:
+                    default:
+                        ViewBag.Message = "";
+                        break;
+                }
 
-                case 1:
-                    ViewBag.Message = "Profile updated successfully.";
-                    break;
-                case 2:
-                    ViewBag.Message = "Profile update failed.";
-                    break;
-                case 0:
-                default:
-                    ViewBag.Message = "";
-                    break;
+                var result = (from c in db.CertUsers
+                              where c.certUserID == id
+                              select c).SingleOrDefault();
+                return View(result);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
             }
 
-            int id = (int)Session["userID"];
-
-            var result = (from c in db.CertUsers
-                          where c.certUserID == id
-                          select c).SingleOrDefault();
-
-            return View(result);
         }
 
         public ActionResult MyVideos()
         {
-            int sid = (int)Session["userID"];
-            var videos = from v in db.Videos
-                         where v.userID == sid
-                         select v;
+            try
+            {
+                int sid = (int)Session["userID"];
+                var videos = from v in db.Videos
+                             where v.userID == sid
+                             select v;
 
 
-            return View(videos);
+                return View(videos);
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
+            }
         }
 
         public ActionResult Upload()
@@ -123,7 +141,7 @@ namespace Bdots1.Controllers
                 return View(transactions);
             }
             else
-                return View();
+                return Redirect("~/Login/Index");
         }
 
         public ActionResult Edit()
@@ -156,8 +174,26 @@ namespace Bdots1.Controllers
 
         public ActionResult EditVideo(int? id)
         {
-
-            return View();
+            var result = db.Videos.Single(m => m.videoID == id);
+            return View(result);
+        }
+        [HttpPost]
+        public ActionResult EditVideo(int? id, FormCollection coll)
+        {
+            try
+            {
+                var result = db.Videos.Single(m => m.videoID == id);
+                if (TryUpdateModel(result))
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("MyVideos");
+                }
+                return View(result);
+            }
+            catch
+            {
+                return View();
+            }
         }
         public ActionResult DeleteVideo(int? id)
         {

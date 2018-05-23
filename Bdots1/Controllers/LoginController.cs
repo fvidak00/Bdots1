@@ -22,6 +22,7 @@ namespace Bdots1.Controllers
                 if(userDetails == null)
                 {
                     Session["userID"] = null;
+                    userModel.LoginErrorMessage = "Wrong username or password !";
 
                     return View("Index", userModel);
                 }
