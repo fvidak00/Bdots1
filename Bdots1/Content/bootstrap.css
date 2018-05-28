@@ -2456,7 +2456,7 @@ pre {
 }
 
 @media (min-width: 992px) {
-    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-transactions {
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-13 .col-transactions {
         float: left;
     }
 
@@ -2464,6 +2464,40 @@ pre {
         width: 25%;
     }
 
+    .change-password-button {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    
+    }
+    .col-md-13 {
+        padding-top: 5px;
+        width: 83.33333333%;
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 25px;
+        float: left;
+    }
     .col-md-12 {
         width: 100%;
     }
