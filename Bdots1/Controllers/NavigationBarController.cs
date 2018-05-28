@@ -25,48 +25,55 @@ namespace Bdots1.Controllers
 
         public ActionResult IncrementViewCount(int? id)
         {
-            int sid = (int)Session["userID"];
-
-            var result = (from v in db.Videos
-                          where v.videoID == id
-                          select v).SingleOrDefault();
-
-            var payer = (from p in db.CertUsers
-                         where p.certUserID == sid
-                         select p).SingleOrDefault();
-
-            var receiver = (from r in db.CertUsers
-                            where r.certUserID == result.userID
-                            select r).SingleOrDefault();
-
-            if (payer.balance < result.price && result.userID != sid)
+            try
             {
-                return RedirectToAction("Index", new { insufficientFunds = 1 });
-            }
-            else
-            {
-                result.viewsCount++;
-                if (result.userID != sid)
+                int sid = (int)Session["userID"];
+
+                var result = (from v in db.Videos
+                              where v.videoID == id
+                              select v).SingleOrDefault();
+
+                var payer = (from p in db.CertUsers
+                             where p.certUserID == sid
+                             select p).SingleOrDefault();
+
+                var receiver = (from r in db.CertUsers
+                                where r.certUserID == result.userID
+                                select r).SingleOrDefault();
+
+                if (payer.balance < result.price && result.userID != sid)
                 {
-                    Payment payment = new Payment
+                    return RedirectToAction("Index", new { insufficientFunds = 1 });
+                }
+                else
+                {
+                    result.viewsCount++;
+                    if (result.userID != sid)
                     {
-                        videoID = result.videoID,
-                        payer = payer.certUserID,
-                        receiver = receiver.certUserID,
-                        paymentSum = result.price,
-                        paymentDatetime = DateTime.Now
-                    };
+                        Payment payment = new Payment
+                        {
+                            videoID = result.videoID,
+                            payer = payer.certUserID,
+                            receiver = receiver.certUserID,
+                            paymentSum = result.price,
+                            paymentDatetime = DateTime.Now
+                        };
 
-                    db.Payments.Add(payment);
+                        db.Payments.Add(payment);
+                        db.SaveChanges();
+
+                        receiver.balance += result.price;
+                        payer.balance -= result.price;
+
+                    }
                     db.SaveChanges();
 
-                    receiver.balance += result.price;
-                    payer.balance -= result.price;
-
+                    return RedirectToAction("VideoPlayer", new { id });
                 }
-                db.SaveChanges();
-
-                return RedirectToAction("VideoPlayer", new { id });
+            }
+            catch
+            {
+                return Redirect("~/Login/Index");
             }
 
         }
