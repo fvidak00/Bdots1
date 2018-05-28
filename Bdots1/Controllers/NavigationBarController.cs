@@ -265,10 +265,10 @@ namespace Bdots1.Controllers
                 try
                 {
 
-                    string[] passwordi = collection[2].Split(',');
+                    //string[] passwordi = collection[2].Split(',');
 
-                    string oldPass = passwordi[0];
-                    string newPass = passwordi[1];
+                    string oldPass = collection[2];
+                    string newPass = collection[3];
 
                     if (result.password == oldPass)
                     {
@@ -286,18 +286,18 @@ namespace Bdots1.Controllers
 
 
 
-                        return RedirectToAction("ChangePassword", new { profileUpdated = 1 });
+                        return RedirectToAction("ChangePassword", new { nesto = 1 });
 
                     }
                     else
                     {
 
-                        return RedirectToAction("ChangePassword", new { profileUpdated = 3 });
+                        return RedirectToAction("ChangePassword", new { nesto = 3 });
                     }
                 }
                 catch
                 {
-                    return RedirectToAction("ChangePassword", new { profileUpdated = 2 });
+                    return RedirectToAction("ChangePassword", new { nesto = 2 });
                 }
 
             }
