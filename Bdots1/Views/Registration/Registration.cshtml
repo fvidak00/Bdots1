@@ -10,22 +10,33 @@
 <body>
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/RegistrationScript.js"></script>
-    <div data-ng-app="myApp" data-ng-controller="registrationCtrl">
+    <div data-ng-app="myApp" data-ng-controller="registrationCtrl" @*ng-init="save=true"*@>
         <div>
             <script src="~/Scripts/angular.min.js"></script>
             <script src="~/Scripts/RegistrationScript.js"></script>
-            First name:<input type="text" name="certuser.firstname" data-ng-model="certuser.firstname" /><br />
-            <br />
-            Last name:<input type="text" name="certuser.lastname" data-ng-model="certuser.lastname" /><br />
-            <br />
-            Username:<input type="text" name="certuser.username" data-ng-model="certuser.username" /><br />
-            <br />
-            Email:<input type="text" name="certuser.email" data-ng-model="certuser.email" /><br />
-            <br />
-            Password:<input type="password" name="certuser.password" data-ng-model="certuser.password" /><br />
-            <br />
-           
-            <input type="button" value="Save" name="btnSave" ng-click="savedata(certuser)" />
+            <form name="Form">
+                First name:<input type="text" name="firstname" data-ng-model="certuser.firstname" required />
+                <span ng-show="Form.firstname.$touched && Form.firstname.$invalid">The first name is required.</span>
+                <br />
+                <br />
+                Last name:<input type="text" name="certuser.lastname" data-ng-model="certuser.lastname" /><br />
+                <br />
+                <br />
+                <p>
+                    Username:<input type="text" name="username" data-ng-model="certuser.username" /><br />
+                    <span ng-show="Form.username.$touched && Form.username.$invalid">The username is required.</span>
+                </p>
+
+                <br />
+                Email:<input type="email" validate-email name="email" data-ng-model="certuser.email" required />
+                      <span ng-show="Form.email.$invalid ">The email is required.</span>
+                <span ng-show="Form.email.$error.email">Invalid email address.</span>
+                <br />
+                <br />
+               
+            </form>
+
+            <input type="button" value="Save" name="btnSave" ng-click="savedata(certuser)" @*ng-disabled="save"*@ />
         </div>
 
     </div>
