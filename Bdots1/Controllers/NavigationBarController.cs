@@ -39,7 +39,6 @@ namespace Bdots1.Controllers
                             where r.certUserID == result.userID
                             select r).SingleOrDefault();
 
-
             if (payer.balance < result.price && result.userID != sid)
             {
                 return RedirectToAction("Index", new { insufficientFunds = 1 });
@@ -49,8 +48,21 @@ namespace Bdots1.Controllers
                 result.viewsCount++;
                 if (result.userID != sid)
                 {
+                    Payment payment = new Payment
+                    {
+                        videoID = result.videoID,
+                        payer = payer.certUserID,
+                        receiver = receiver.certUserID,
+                        paymentSum = result.price,
+                        paymentDatetime = DateTime.Now
+                    };
+
+                    db.Payments.Add(payment);
+                    db.SaveChanges();
+
                     receiver.balance += result.price;
                     payer.balance -= result.price;
+
                 }
                 db.SaveChanges();
 
