@@ -104,7 +104,7 @@ namespace Bdots1.Controllers
                         ViewBag.Message = "Profile updated successfully.";
                         break;
                     case 2:
-                        ViewBag.Message = "Profile update failed.";
+                        ViewBag.Message = "Profile update failed. Please fill all fields";
                         break;
                     case 0:
                     default:
@@ -188,8 +188,14 @@ namespace Bdots1.Controllers
                 {
                     if (TryUpdateModel(result))
                     {
-                        db.SaveChanges();
-                        return RedirectToAction("MyProfile", new { profileUpdated = 1 });
+                        if(result.firstName != null && 
+                           result.lastName != null &&
+                           result.email != null)
+                        {
+                            db.SaveChanges();
+                            return RedirectToAction("MyProfile", new { profileUpdated = 1 });
+                        }
+                        
                     }
                     return RedirectToAction("MyProfile", new { profileUpdated = 2 });
                 }
