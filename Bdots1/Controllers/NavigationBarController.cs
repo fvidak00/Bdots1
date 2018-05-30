@@ -78,7 +78,6 @@ namespace Bdots1.Controllers
 
         }
 
-
         public ActionResult VideoPlayer(int? id)
         {
             if (id != null)
