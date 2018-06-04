@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -331,5 +332,43 @@ namespace Bdots1.Controllers
             }
         }
 
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(CertUser userModel)
+        {
+            using (BDEntities forgotDB = new BDEntities())
+            {
+                var userDetails = forgotDB.CertUsers.Where(x => x.email == userModel.email).FirstOrDefault();
+                if(userDetails != null)
+                {
+                    MailMessage mailMessage = new MailMessage();
+                    mailMessage.To.Add(userModel.email);
+                    mailMessage.From = new MailAddress("bdots1@outlook.com");
+
+                    mailMessage.Subject = "Do not forget your password this time!";
+                    mailMessage.Body = "Username: " + userDetails.username + "\nPassword:  " + userDetails.password;
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.live.com", 587)
+                    {
+                        EnableSsl = true,
+
+                        Credentials = new System.Net.NetworkCredential("bdots1@outlook.com", "Grf55psf")
+                    };
+                    smtpClient.Send(mailMessage);
+                    ViewBag.Message = "E-mail successfully sent";
+                    return RedirectToAction("../Login/Index");
+                    //Response.Write("E-mail sent!");
+                }
+                else
+                {
+                    
+                    userModel.LoginErrorMessage = "Wrong e-mail!";
+                    return View("ForgotPassword", userModel);
+                }
+            }
+        }
     }
 }
