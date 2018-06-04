@@ -17,7 +17,7 @@
 {
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-treciStupac">
             <h2>
 
                 @*@Html.ActionLink(item.title, "IncrementViewCount", new { id = item.videoID })*@
@@ -42,10 +42,11 @@
 
 
 
-        <div class="col-md-4">
+        <div class="col-md-treciStupac">
             <p>Owner > @item.CertUser.username </p>
             <p>Views > @item.viewsCount </p>
             <p>Price > @item.price</p>
+
         </div>
     </div>
 }
