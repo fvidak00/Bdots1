@@ -85,7 +85,7 @@
             </tr>
             <tr>
                 <td>
-                    @Html.LabelFor(model => model.username, "UserName")
+                    @Html.LabelFor(model => model.username, "Username")
                 </td>
                 <td>
                     @Html.EditorFor(model => model.username, "user")
@@ -111,14 +111,17 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" name="name" value="Login" class="button Login" />
+                    <input type="submit" value="Login" class="button Login" />
                     <br />
                     <input type="button" value="Registration" class="button Registration" onclick="@("window.location.href='" + @Url.Action("Registration", "Registration") + "'");">
                 </td>
             </tr>
         </table>
         }
+        <h3>@Html.ActionLink("Forgot password?", "ForgotPassword", "NavigationBar")</h3>
     </div>
+
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
