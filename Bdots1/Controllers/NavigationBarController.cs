@@ -188,14 +188,14 @@ namespace Bdots1.Controllers
                 {
                     if (TryUpdateModel(result))
                     {
-                        if(result.firstName != null && 
+                        if (result.firstName != null &&
                            result.lastName != null &&
                            result.email != null)
                         {
                             db.SaveChanges();
                             return RedirectToAction("MyProfile", new { profileUpdated = 1 });
                         }
-                        
+
                     }
                     return RedirectToAction("MyProfile", new { profileUpdated = 2 });
                 }
@@ -339,36 +339,38 @@ namespace Bdots1.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(CertUser userModel)
         {
-            using (BDEntities forgotDB = new BDEntities())
+
+
+
+
+            var userDetails = db.CertUsers.Where(x => x.email == userModel.email).FirstOrDefault();
+            if (userDetails != null)
             {
-                var userDetails = forgotDB.CertUsers.Where(x => x.email == userModel.email).FirstOrDefault();
-                if(userDetails != null)
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.To.Add(userModel.email);
+                mailMessage.From = new MailAddress("bdots1@outlook.com");
+
+                mailMessage.Subject = "Do not forget your password this time!";
+                mailMessage.Body = "Username: " + userDetails.username + "\nPassword:  " + userDetails.password;
+
+                SmtpClient smtpClient = new SmtpClient("smtp.live.com", 587)
                 {
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.To.Add(userModel.email);
-                    mailMessage.From = new MailAddress("bdots1@outlook.com");
+                    EnableSsl = true,
 
-                    mailMessage.Subject = "Do not forget your password this time!";
-                    mailMessage.Body = "Username: " + userDetails.username + "\nPassword:  " + userDetails.password;
-
-                    SmtpClient smtpClient = new SmtpClient("smtp.live.com", 587)
-                    {
-                        EnableSsl = true,
-
-                        Credentials = new System.Net.NetworkCredential("bdots1@outlook.com", "Grf55psf")
-                    };
-                    smtpClient.Send(mailMessage);
-                    ViewBag.Message = "E-mail successfully sent";
-                    return RedirectToAction("../Login/Index");
-                    //Response.Write("E-mail sent!");
-                }
-                else
-                {
-                    
-                    userModel.LoginErrorMessage = "Wrong e-mail!";
-                    return View("ForgotPassword", userModel);
-                }
+                    Credentials = new System.Net.NetworkCredential("bdots1@outlook.com", "Grf55psf")
+                };
+                smtpClient.Send(mailMessage);
+                ViewBag.Message = "E-mail successfully sent";
+                return RedirectToAction("../Login/Index");
+                //Response.Write("E-mail sent!");
             }
+            else
+            {
+
+                userModel.LoginErrorMessage = "Wrong e-mail!";
+                return View("ForgotPassword", userModel);
+            }
+
         }
     }
 }
