@@ -356,14 +356,13 @@ namespace Bdots1.Controllers
                     Credentials = new System.Net.NetworkCredential("bdots1@outlook.com", "Grf55psf")
                 };
                 smtpClient.Send(mailMessage);
-                ViewBag.Message = "E-mail sent";
-                return RedirectToAction("../Login/Index");
+                
+                return RedirectToAction("../Login/Index", new { flag = 1 });
                 //Response.Write("E-mail sent!");
             }
             else
             {
-
-                userModel.LoginErrorMessage = "Wrong e-mail!";
+                ViewBag.Message = "E-mail not sent";
                 return View("ForgotPassword", userModel);
             }
         }
