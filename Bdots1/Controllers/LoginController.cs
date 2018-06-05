@@ -8,8 +8,18 @@ namespace Bdots1.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(int flag = 0)
         {
+            switch( flag)
+            {
+                case 1:
+                    ViewBag.Message = "E-mail successfully sent";
+                    break;
+                case 0:
+                default:
+                    ViewBag.Message = "";
+                    break;
+            }
             return View();
         }
         [HttpPost]
