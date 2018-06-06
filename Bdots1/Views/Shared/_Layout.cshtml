@@ -28,7 +28,9 @@
                     <li>@Html.ActionLink("My Videos", "MyVideos", "NavigationBar")</li>
                     <li>@Html.ActionLink("My Transactions", "Transactions", "NavigationBar")</li>
                     <li>@Html.ActionLink("Upload", "Upload", "Upload")</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Logout", "../Login/Logout", "", new { onclick = "return confirm('Are you sure you want to logout');" })</li>
                 </ul>
             </div>
         </div>
