@@ -1064,6 +1064,9 @@
     <None Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\NavigationBar\VideoPlayer.cshtml" />
+    <Content Include="Views\NavigationBar\ChangePassword.cshtml" />
+    <Content Include="Views\NavigationBar\EditVideo.cshtml" />
+    <Content Include="Views\NavigationBar\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,6 +11,7 @@ namespace Bdots1
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class CertUser
@@ -24,15 +25,35 @@ namespace Bdots1
         }
     
         public int certUserID { get; set; }
+
+
+        [DisplayName("User name")]
         [Required(ErrorMessage = "This field is required")]
         public string username { get; set; }
+
+
+        [DisplayName("First name")]
         public string firstName { get; set; }
+
+
+        [DisplayName("Last name")]
         public string lastName { get; set; }
+
+
+        [DisplayName("Balance")]
         public decimal balance { get; set; }
+
+
+        [DisplayName("Email address")]
         public string email { get; set; }
+
+
         [Required(ErrorMessage = "This field is required")]
         public string password { get; set; }
-    
+
+
+        public string LoginErrorMessage { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> PaymentsSent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
