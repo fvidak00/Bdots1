@@ -41,6 +41,7 @@ namespace Bdots1
 
 
         [DisplayName("Balance")]
+        [DisplayFormat(DataFormatString = "{0:0.000000000}")]
         public decimal balance { get; set; }
 
 
