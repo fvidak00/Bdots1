@@ -38,8 +38,6 @@ myApp.controller('registrationCtrl', function ($scope, $http,$window) {
 });
 
 myApp.controller('uploadController', function ($scope, $http,$window) {
-
-	debugger;
 	$scope.video = {};
 
 	
@@ -54,47 +52,47 @@ myApp.controller('uploadController', function ($scope, $http,$window) {
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 	
-	window.onYouTubeIframeAPIReady = function () {
-		$scope.player = new YT.Player('player', {
-			height: '400',
-			width: '400',
-			videoId: youtube_parser(videoTitle),
-			events: {
-				'onReady': onPlayerReady,
-				'onStateChange': onPlayerStateChange
-			},
-			playerVars: {
-				'controls': 0,
-				'showinfo': 0
-			}
+    window.onYouTubeIframeAPIReady = function () {
+        $scope.player = new YT.Player('player', {
+            height: '400',
+            width: '400',
+            videoId: youtube_parser(videoTitle),
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            },
+            playerVars: {
+                'controls': 0,
+                'showinfo': 0
+            }
 
 
-		});
-		
+        });
 
-		function onPlayerReady(event) {
 
-			$scope.player.playVideo();
+        function onPlayerReady(event) {
 
-			
-		}
+            $scope.player.playVideo();
 
-		function youtube_parser(url) {
-			var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/i;
-			var match = url.match(regExp);
-			return (match && match[7].length == 11) ? match[7] : false;
-		}
 
-		var firstLoad = true;
+        }
 
-		//	// The API calls this function when the player's state changes.
-		function onPlayerStateChange(event) {
-			if (firstLoad == true && event.data === -1) {
-				console.log(firstLoad);
-				firstLoad = false;
-			}
-		}
-	}
+        function youtube_parser(url) {
+            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/i;
+            var match = url.match(regExp);
+            return (match && match[7].length === 11) ? match[7] : false;
+        }
+
+        var firstLoad = true;
+
+        //	// The API calls this function when the player's state changes.
+        function onPlayerStateChange(event) {
+            if (firstLoad === true && event.data === -1) {
+                console.log(firstLoad);
+                firstLoad = false;
+            }
+        }
+    };
 
 	$scope.check = function (filepath) {
 
@@ -105,7 +103,7 @@ myApp.controller('uploadController', function ($scope, $http,$window) {
 		function youtube_parser(url) {
 			var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/i;
 			var match = url.match(regExp);
-			return (match && match[7].length == 11) ? match[7] : false;
+			return (match && match[7].length === 11) ? match[7] : false;
 		}
 	};
 
