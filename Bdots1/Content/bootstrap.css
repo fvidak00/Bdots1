@@ -10,16 +10,9 @@ html {
     -ms-text-size-adjust: 100%;
 }
 
+
 body {
     margin: 0;
-}
-
-input.ng-invalid {
-    background-color: red;
-}
-
-input.ng-valid {
-    background-color: lightyellow;
 }
 
 

@@ -235,6 +235,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="ContentCSS\Registration.css" />
+    <Content Include="ContentCSS\Upload.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1059,7 +1061,7 @@
     <Content Include="Views\NavigationBar\Transactions.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Registration\Registration.cshtml" />
-    <Content Include="Views\Upload\Upload.cshtml" />
+    <None Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\NavigationBar\VideoPlayer.cshtml" />
     <Content Include="Views\NavigationBar\ChangePassword.cshtml" />
@@ -1101,7 +1103,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>65179</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
