@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Numerics;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Bdots1;
 
 namespace Bdots1.Controllers
 {
     public class NavigationBarController : Controller
     {
         private BDEntities db = new BDEntities();
+        private BDokenControl BDC = new BDokenControl();
 
         public ActionResult Index(int insufficientFunds = 0)
         {
@@ -24,7 +28,7 @@ namespace Bdots1.Controllers
             return View(videos);
         }
 
-        public ActionResult IncrementViewCount(int? id)
+        public async Task<ActionResult> IncrementViewCount(int? id)
         {
             try
             {
@@ -41,6 +45,8 @@ namespace Bdots1.Controllers
                 var receiver = (from r in db.CertUsers
                                 where r.certUserID == result.userID
                                 select r).SingleOrDefault();
+                BigInteger bal = await BDC.CheckBalance("0xbb79cc5e10fadfa398b7be548c331e2181499ce3", "password");
+                BigInteger bal1 = await BDC.CheckBalance("0x2119ad81730f7da63b56d5d4eecc82d26c226db7", "password");
 
                 if (payer.balance < result.price && result.userID != sid)
                 {
@@ -66,6 +72,7 @@ namespace Bdots1.Controllers
                         receiver.balance += result.price;
                         payer.balance -= result.price;
 
+                        await BDC.Transfer("0xbb79cc5e10fadfa398b7be548c331e2181499ce3", "password", "0x2119ad81730f7da63b56d5d4eecc82d26c226db7", 5);
                     }
                     db.SaveChanges();
 
